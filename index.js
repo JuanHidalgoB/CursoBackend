@@ -15,24 +15,25 @@ console.log(`server on port ${3000}`)
 const express = require('express')
 
 const app = express()
+ //operaciones CRUD
+ app.get('/products', (req, res) => {
+    res.send('lista de productos')
+ })
 
-app.get('/', (req ,res) => {
-    res.sendFile('./static/index.html', {
-        root: __dirname
-    })
-})
+ app.post('/products', (req, res) => {
+    res.send('Creando productos')
+ })
 
-app.get('/about', (req ,res) => {
-    res.send('About')
-})
+ app.put('/products', (req, res) => {
+    res.send('Actualizando productos')
+ })
 
-app.get('/profile', (req ,res) => {
-    res.send('Profile')
-})
+ app.patch('/products', (req, res) => {
+    res.send('Actualizando un producto')
+ })
 
-app.use((req, res) => {
-    res.status(404).send('No se encuentra tu página')
-})
-
+ app.delete('/products', (req, res) => {
+    res.send('Eliminando productos')
+ })
 app.listen(3000)
 console.log(`server on port ${3000}`)
