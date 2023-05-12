@@ -2,15 +2,30 @@ const express = require("express");
 
 const app = express();
 
+app.get('/hello/:username',(req, res)=>{
+    console.log(typeof req.params.username)
+    res.send(`Hello ${req.params.username.toUpperCase()}`)
+})
 
-app.use(express.text()) //para que el servidor pueda leer text
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))//para leer formularios simples, no tiene que interoretar nada complejo
+app.get('/add/:x/:y', (req, res)=>{
 
-app.post("/user", (req, res) => {
-  console.log(req.body);
+    //se puede hacer lo siguiente para sacar los parametros más fácil
+    //const {x,y} = req.params 
 
-  res.send("Nuevo Usuario Creado");
-});
+    const suma = parseInt(req.params.x) + parseInt(req.params.y)
+    res.send(`${req.params.x} + ${req.params.y} = ${suma}`)
+
+})
+
+app.get('/:user/photo', (req, res) => {
+    const {user} = req.params
+    if (user === 'juan'){
+        return res.sendFile('./flyer.jpeg', {
+            root: __dirname
+        })
+    }
+    res.send('Usuario sin acceso')
+    
+})
 app.listen(3000);
 console.log(`server on port ${3000}`);
