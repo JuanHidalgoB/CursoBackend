@@ -1,12 +1,10 @@
 const express = require("express");
+const morgan = require('morgan')
+
 
 const app = express();
 
-app.use((req, res, next) => {
-    console.log(`Route: ${req.url} Method: ${req.method}`)
-
-    next()
-})
+app.use(morgan('tiny'))
 
 app.get('/profile', (req, res) => {
     res.send('Profile Page')
